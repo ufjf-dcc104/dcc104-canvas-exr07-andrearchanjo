@@ -18,6 +18,7 @@ Map.prototype.desenhar = function (ctx, img) {
       this.comidas[i].desenharQuadrado(ctx);
       //this.tesouros[i].desenharObjeto(ctx, img.images[this.tesouros[i].imgKey]);
   }
+  
 
   for (var i = 0; i < this.armadilhas.length; i++) {
       this.armadilhas[i].desenharQuadrado(ctx);
@@ -39,19 +40,19 @@ Map.prototype.desenhar = function (ctx, img) {
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
       }
       if(this.cells[r][c]==3){
-        ctx.fillStyle = "gray";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        //ctx.fillStyle = "gray";
+        //ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
         ctx.fillStroke = "black";
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
       }
       if(this.cells[r][c] == 4){
-        ctx.fillStyle = "yellow";
+        ctx.fillStyle = "red";
         ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
         ctx.fillStroke = "black";
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
       }
       if(this.cells[r][c] == 5){
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "green";
         ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
         ctx.fillStroke = "black";
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
@@ -95,55 +96,11 @@ Map.prototype.colidiuCom = function (alvo, resolveColisao) {
       }
     }
     for (var i = 0; i < this.armadilhas.length; i++) {
-      if(this.comidas[i].colidiuCom(alvo)){
+      if(this.armadilhas[i].colidiuCom(alvo)){
         resolveColisao(this.armadilhas[i], alvo);
       }
     }
 };
-
-/*Map.prototype.showInformations = function(ctx){
-  
-  // -- Minas --
-
-  ctx.font="20px Verdana";
-  ctx.fillStyle = "red";
-  ctx.fillText("Minas: " + this.minasQtd, 285, 80);
-  
-  // -- Tesouros --
-
-  ctx.fillStyle = "green";
-  ctx.fillText("Tesouros: " + this.tesourosQtd, 285, 100);
-
-  // -- Pontuação --
-
-  ctx.fillStyle = "purple";
-  ctx.fillText("Pontuação: " + this.pontuacao, 285, 120);
-
-  // -- Tempo --
-
-  ctx.fillStyle = "black"
-  ctx.fillText("Tempo", 285, 20);
-  if(!this.gameOver){
-    ctx.fillStyle = "orange"
-    ctx.fillRect(285, 30, this.tempo, 10);
-    ctx.strokeRect(285, 30, this.tempo, 10);
-  }
-  
-  // -- Fim de Jogo --
-
-  if(this.gameOver){
-    ctx.fillStyle = "blue";
-    ctx.fillText("Game Over", 285, 225);
-  }
-
-  // -- Vitória -- 
-
-  if(this.victory){
-    ctx.fillStyle = "blue";
-    ctx.fillText("Vitória", 285, 225);
-  }
-
-}*/
 
 Map.prototype.getCells = function () {
   for (var r = 0; r < this.cells.length; r++) {
@@ -270,7 +227,7 @@ Map.prototype.setRandom = function (newCells) {
       count = 0;
       if(this.cells[i][j] == 2 || this.cells[i][j] == 3 || this.cells[i][j] == 4 || this.cells[i][j] == 5){
         
-        console.log("Achou a célula i: " + i + ", j: " + j);
+        //console.log("Achou a célula i: " + i + ", j: " + j);
         if(this.cells[i-1][j] == 3){
           count++;
         }
@@ -286,7 +243,7 @@ Map.prototype.setRandom = function (newCells) {
 
         if(count <= 1){
 
-          console.log("Aqui");
+          //console.log("Aqui");
 
           var escolha = Math.round(Math.random()  * (2 - 1)) + 1;
           var randomCellI = 0;
@@ -380,8 +337,15 @@ for (var p = 0; p < newCells.length; p++) {
   var r = Math.floor(Math.random() * (12 - 5) + 5);
   var c = Math.floor(Math.random() * (12 - 7) + 7);
     if(this.cells[r][c] == 3){
-      this.cells[r-1][c] = 3;
-      this.cells[r][c-1] = 3;
+      
+      if(this.cells[r-1][c] == 1){
+        this.cells[r-1][c] = 3;
+      }
+
+      if(this.cells[r][c-1] == 1){
+        this.cells[r][c-1] = 3;
+      }
+      
       this.cells[r][c] = 6;
       saida = true;
     }

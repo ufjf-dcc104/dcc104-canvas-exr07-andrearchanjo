@@ -8,11 +8,15 @@ var anterior = 0;
 var frame = 0;
 var i = 1;//posiçao inicial em relação à cells (2)
 var j = 1;//posiçao inicial em relação à cells (2)
+var subirLevel = false;
+var level = 1;
+var totalLevel = 2;
+var life = 130;
 
 function init(){
   canvas = document.getElementsByTagName('canvas')[0];
-  canvas.width = 520;
-  canvas.height = 520;
+  canvas.width = 580;
+  canvas.height = 580;
   ctx = canvas.getContext("2d");
   images = new ImageLoader();
   images.load("pc","pc.png");
@@ -44,28 +48,55 @@ function init(){
 }
 
 function passo(t){
-  dt = (t-anterior)/1000;
-  requestAnimationFrame(passo);
-  //ctx.save();
-  //ctx.translate(250,0);
-  //ctx.scale(1,0.5);
-  //ctx.rotate(Math.PI/4);
-  ctx.clearRect(0,0, canvas.width, canvas.height);
+  if(level != totalLevel){
+    if(subirLevel){
+      init();
+      subirLevel = false;
+    }
+    if(life >=0){
+      dt = (t-anterior)/1000;
+      requestAnimationFrame(passo);
   
-  map.colidiuComida(pc);
-  map.colidiuArmadilha(pc);
-  pc.mover(map, dt);
+      ctx.clearRect(0,0, canvas.width, canvas.height);
 
-  //pc.sentirArea(ctx, map);
-  //map.perseguir(pc);
-  //map.mover(dt);
-  map.desenhar(ctx, images);
-  pc.desenhar(ctx);
-  anterior = t;
-  //ctx.restore();
-  frame = (frame<9)?frame:1;
-  //images.drawFrame(ctx,"pc",8,Math.floor(frame),0,0,64);
-  frame+=2*dt;
+      life = life - dt*5;
+
+      pc.mover(map, dt);
+
+      map.desenhar(ctx, images);
+      pc.desenhar(ctx);
+
+      showInformation(ctx);
+
+      anterior = t;
+      //ctx.restore();
+      frame = (frame<9)?frame:1;
+      //images.drawFrame(ctx,"pc",8,Math.floor(frame),0,0,64);
+      frame+=2*dt;
+    } else {
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      ctx.font = "15px Arial";
+      ctx.fillStyle = "Black";
+      ctx.fillText("Você perdeu!", 250, 250);
+    }
+  }else {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+      ctx.font = "15px Arial";
+      ctx.fillStyle = "Black";
+      ctx.fillText("Você venceu!", 250, 250);
+  }
+}
+
+function showInformation(ctx){
+  
+  if(life >= 0){
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "Blue";
+    ctx.fillText("Life", 440, 15);
+    ctx.fillStyle = "Orange";
+    ctx.fillRect(440, 20, life, 10);
+    ctx.strokeRect(440, 20, life, 10);
+  }
 }
 
 function initControls(){

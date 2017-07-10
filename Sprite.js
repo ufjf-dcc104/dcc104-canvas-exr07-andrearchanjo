@@ -6,6 +6,7 @@ function Sprite(){
   this.SIZE = 16;
   this.color = "rgba(0,0,0,0.3)";
   this.pose = 0;
+  this.life = 100;
   this.frame = 0;
   this.poses = [
     {row: 11, col:1, frames:8, v: 4},//direita[0]
@@ -169,6 +170,19 @@ Sprite.prototype.mover = function (map, dt) {
     this.y = this.y + this.vy*dt;
   }
 
+  if(map.cells[this.gy][this.gx] == 4){
+    life = life + 20;
+  }
+
+  if(map.cells[this.gy][this.gx] == 5){
+    life = life - 10;
+  }
+
+  if(map.cells[this.gy][this.gx] == 6){
+    level++;
+    subirLevel = true;
+  }
+
   // -- Clareando o caminho --
 
   if(map.cells[this.gy][this.gx] != 2){
@@ -180,30 +194,6 @@ Sprite.prototype.mover = function (map, dt) {
     this.frame = 0;
   }
 };
-
-Sprite.prototype.colisaoComida = function (ctx, map){
-  this.gx = Math.floor(this.x/map.SIZE);
-  this.gy = Math.floor(this.y/map.SIZE);
-
-  if(map.cells[this.gy][this.gx] == 4){
-    map.pontuacao++;
-    console.log(map.pontuacao);
-  }
-
-}
-
-Sprite.prototype.colisaoArmadilha = function (ctx, map){
-  this.gx = Math.floor(this.x/map.SIZE);
-  this.gy = Math.floor(this.y/map.SIZE);
-
-  if(map.cells[this.gy][this.gx] == 5){
-    map.gameOver = true;
-    this.vx = 0;
-    this.vy = 0;
-
-    console.log("Você perdeu!");
-  }
-}
 
 Sprite.prototype.colidiuCom = function (alvo) {
   if(this.x + this.width/2 < alvo.x - alvo.width/2)   return false;  // colisão pela esquerda
