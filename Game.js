@@ -52,7 +52,10 @@ function passo(t){
   //ctx.rotate(Math.PI/4);
   ctx.clearRect(0,0, canvas.width, canvas.height);
   
+  map.colidiuComida(pc);
+  map.colidiuArmadilha(pc);
   pc.mover(map, dt);
+
   //pc.sentirArea(ctx, map);
   //map.perseguir(pc);
   //map.mover(dt);

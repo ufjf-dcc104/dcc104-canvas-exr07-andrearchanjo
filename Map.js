@@ -64,30 +64,42 @@ Map.prototype.desenhar = function (ctx, img) {
       }
     }
   }
-
-  
-
 };
 
-/*Map.prototype.colidiuCom = function (alvo, resolveColisao) {
-    for (var i = 0; i < this.tesouros.length; i++) {
-      if(this.tesouros[i].colidiuCom(alvo)){
-        resolveColisao(this.tesouros[i], alvo);
-      }
-    }
-};
-
-Map.prototype.colidiuComTesouro = function(pc){
-  for(var i = this.tesouros.length-1; i>=0; i--){
-
+Map.prototype.colidiuComida = function(pc){
+  var that = this;
+  for(var i = this.comidas.length-1; i>=0; i--){
     this.colidiuCom(pc,
-        function(tesouro){
-            tesouro.visivel = true;
-            console.log("aqui");
+        function(comida){
+            //that.comidas.splice(i,1);
         }
       );
   }
-};*/
+}
+
+Map.prototype.colidiuArmadilha = function(pc){
+  var that = this;
+  for(var i = this.armadilhas.length-1; i>=0; i--){
+    this.colidiuCom(pc,
+        function(armadilha){
+            //that.armadilhas.splice(i,1);
+        }
+      );
+  }
+}
+
+Map.prototype.colidiuCom = function (alvo, resolveColisao) {
+    for (var i = 0; i < this.comidas.length; i++) {
+      if(this.comidas[i].colidiuCom(alvo)){
+        resolveColisao(this.comidas[i], alvo);
+      }
+    }
+    for (var i = 0; i < this.armadilhas.length; i++) {
+      if(this.comidas[i].colidiuCom(alvo)){
+        resolveColisao(this.armadilhas[i], alvo);
+      }
+    }
+};
 
 /*Map.prototype.showInformations = function(ctx){
   
@@ -283,22 +295,22 @@ Map.prototype.setRandom = function (newCells) {
           do{
             if(escolha == 1){
               randomCellI = Math.round(Math.random()  * (2 - 0)) - 1;
-              console.log("Caminho I");
+              /*console.log("Caminho I");
               console.log(i);
               console.log(j);
-              console.log(randomCellI);
+              console.log(randomCellI);*/
             } else {
               randomCellJ = Math.round(Math.random()  * (2 - 0)) - 1;
-              console.log("Caminho J");
+              /*console.log("Caminho J");
               console.log(i);
               console.log(j);
-              console.log(randomCellJ);
+              console.log(randomCellJ);*/
             }
           } while(randomCellI == 0 && randomCellJ == 0)
 
           this.cells[i + randomCellI][j +randomCellJ] = 3;
-          console.log("Resultado: ");
-          console.log(this.cells[i + randomCellI][j +randomCellJ]);
+          /*console.log("Resultado: ");
+          console.log(this.cells[i + randomCellI][j +randomCellJ]);*/
           this.cells[1][1] = 2;
           this.cells[1][2] = 3;
           this.cells[2][1] = 3;
