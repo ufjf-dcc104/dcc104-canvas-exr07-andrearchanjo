@@ -10,7 +10,7 @@ var i = 1;//posiçao inicial em relação à cells (2)
 var j = 1;//posiçao inicial em relação à cells (2)
 var subirLevel = false;
 var level = 1;
-var totalLevel = 2;
+var totalLevel = 12;
 var life = 130;
 
 function init(){

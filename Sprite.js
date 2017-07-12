@@ -171,11 +171,19 @@ Sprite.prototype.mover = function (map, dt) {
   }
 
   if(map.cells[this.gy][this.gx] == 4){
-    life = life + 20;
+    if(life < 110 && life > 0){
+      life = life + 20;
+    } else {
+      life = 130;
+    }
   }
 
   if(map.cells[this.gy][this.gx] == 5){
-    life = life - 10;
+    if(life <= 130 && life > 0){
+      life = life - 10;
+    } else {
+      life = 0;
+    }
   }
 
   if(map.cells[this.gy][this.gx] == 6){

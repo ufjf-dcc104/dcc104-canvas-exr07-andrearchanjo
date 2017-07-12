@@ -1,3 +1,7 @@
+var grafo;
+var visitados;
+var listaAtual;
+
 function Map(rows, collumns) {
   this.SIZE = 32;
   this.victory = false;
@@ -40,7 +44,7 @@ Map.prototype.desenhar = function (ctx, img) {
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
       }
       if(this.cells[r][c]==3){
-        //ctx.fillStyle = "gray";
+        ctx.fillStyle = "gray";
         //ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
         ctx.fillStroke = "black";
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
@@ -52,7 +56,7 @@ Map.prototype.desenhar = function (ctx, img) {
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
       }
       if(this.cells[r][c] == 5){
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "red";
         ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
         ctx.fillStroke = "black";
         ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
@@ -351,7 +355,56 @@ for (var p = 0; p < newCells.length; p++) {
     }
   } while(!saida);
 
+  //console.log(this.buscaEmLargura());
+
 };
+
+/*Map.prototype.buscaEmLargura = function(){
+  this.initMapa();
+  var atual;
+  listaAtual.push(1);
+    while (listaAtual.length > 0) {
+      console.log("Atual: " + listaAtual);
+      atual = listaAtual.shift();
+      visitados[atual] = true;
+      console.log("Array de visitados: " + "[" + visitados + "]");
+      for (var i = 0; i < grafo.length-1; i++) {
+        console.log("Atual: " + atual + " i: " + i);
+        if (grafo[atual][i] == 3) {
+          console.log(atual);
+          if(atual != 12){
+
+          if(grafo[atual+1][i] == 6){ //baixo
+            //return true;
+          }
+          if(grafo[atual-1][i] == 6){ //cima
+            //return true;
+          }
+          if(grafo[atual][i+1] == 6){ //direita
+            //return true;
+          }
+          if(grafo[atual][i-1] == 6){ //esquerda
+            //return true;
+          }
+          }
+          if (!visitados[i])
+            listaAtual.push([i]);
+        }
+      }
+    }
+  return false;
+}
+
+Map.prototype.initMapa = function(){
+  
+  grafo = this.cells;
+  visitados = [];
+  listaAtual = [];
+
+  for (var i = 0; i < grafo.length; i++){
+    visitados[i] = false;
+  }
+}*/
 
 /*Map.prototype.verificarCaminho = function(){
   for (var i = 1; i < this.Cells.length-1; i++) {
