@@ -18,6 +18,49 @@ function Map(rows, collumns) {
 
 Map.prototype.desenhar = function (ctx, img) {
   
+  
+
+  for (var r = 0; r < this.cells.length; r++) {
+    for (var c = 0; c < this.cells[0].length; c++) {
+      if(this.cells[r][c]==1){
+        ctx.fillStyle = "brown";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        ctx.fillStroke = "white";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+      }
+      if(this.cells[r][c]==2){
+        ctx.fillStyle = "gray";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        /*ctx.strokeStyle = "white";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
+      }
+      if(this.cells[r][c]==3){
+        ctx.fillStyle = "gray";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        /*ctx.fillStroke = "black";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
+      }
+      if(this.cells[r][c] == 4){
+        ctx.fillStyle = "red";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        /*ctx.strokeStyle = "black";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
+      }
+      if(this.cells[r][c] == 5){
+        ctx.fillStyle = "green";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        /*ctx.strokeStyle = "black";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
+      }
+      if(this.cells[r][c] == 6){
+        ctx.fillStyle = "darkblue";
+        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
+        /*ctx.strokeStyle = "black";
+        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
+      }
+    }
+  }
+
   for (var i = 0; i < this.comidas.length; i++) {
       this.comidas[i].desenharQuadrado(ctx);
       //this.tesouros[i].desenharObjeto(ctx, img.images[this.tesouros[i].imgKey]);
@@ -28,82 +71,6 @@ Map.prototype.desenhar = function (ctx, img) {
       this.armadilhas[i].desenharQuadrado(ctx);
       //this.minas[i].desenharObjeto(ctx, img.images[this.minas[i].imgKey]);
   }
-
-  for (var r = 0; r < this.cells.length; r++) {
-    for (var c = 0; c < this.cells[0].length; c++) {
-      if(this.cells[r][c]==1){
-        ctx.fillStyle = "brown";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-      if(this.cells[r][c]==2){
-        /*ctx.fillStyle = "white";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);*/
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-      if(this.cells[r][c]==3){
-        ctx.fillStyle = "gray";
-        //ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-      if(this.cells[r][c] == 4){
-        ctx.fillStyle = "red";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-      if(this.cells[r][c] == 5){
-        ctx.fillStyle = "red";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-      if(this.cells[r][c] == 6){
-        ctx.fillStyle = "darkblue";
-        ctx.fillRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-        ctx.fillStroke = "black";
-        ctx.strokeRect(c*this.SIZE, r*this.SIZE, this.SIZE, this.SIZE);
-      }
-    }
-  }
-};
-
-Map.prototype.colidiuComida = function(pc){
-  var that = this;
-  for(var i = this.comidas.length-1; i>=0; i--){
-    this.colidiuCom(pc,
-        function(comida){
-            //that.comidas.splice(i,1);
-        }
-      );
-  }
-}
-
-Map.prototype.colidiuArmadilha = function(pc){
-  var that = this;
-  for(var i = this.armadilhas.length-1; i>=0; i--){
-    this.colidiuCom(pc,
-        function(armadilha){
-            //that.armadilhas.splice(i,1);
-        }
-      );
-  }
-}
-
-Map.prototype.colidiuCom = function (alvo, resolveColisao) {
-    for (var i = 0; i < this.comidas.length; i++) {
-      if(this.comidas[i].colidiuCom(alvo)){
-        resolveColisao(this.comidas[i], alvo);
-      }
-    }
-    for (var i = 0; i < this.armadilhas.length; i++) {
-      if(this.armadilhas[i].colidiuCom(alvo)){
-        resolveColisao(this.armadilhas[i], alvo);
-      }
-    }
 };
 
 Map.prototype.getCells = function () {

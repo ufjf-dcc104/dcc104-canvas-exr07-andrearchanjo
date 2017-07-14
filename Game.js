@@ -11,7 +11,7 @@ var j = 1;//posiçao inicial em relação à cells (2)
 var subirLevel = false;
 var level = 1;
 var totalLevel = 12;
-var life = 130;
+var life = 135;
 
 function init(){
   canvas = document.getElementsByTagName('canvas')[0];
@@ -54,11 +54,17 @@ function passo(t){
       subirLevel = false;
     }
     if(life >=0){
+
       dt = (t-anterior)/1000;
       requestAnimationFrame(passo);
-  
-      ctx.clearRect(0,0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = "darkblue";
+      ctx.fillRect(0,0, canvas.width, canvas.height);      
 
+      ctx.save();
+      ctx.scale(2,2);
+      ctx.translate(Math.floor(canvas.width/4-pc.x),Math.floor(canvas.height/4-pc.y));
+      
       life = life - dt*5;
 
       pc.mover(map, dt);
@@ -66,13 +72,15 @@ function passo(t){
       map.desenhar(ctx, images);
       pc.desenhar(ctx);
 
-      showInformation(ctx);
-
       anterior = t;
-      //ctx.restore();
+      
       frame = (frame<9)?frame:1;
       //images.drawFrame(ctx,"pc",8,Math.floor(frame),0,0,64);
       frame+=2*dt;
+      ctx.restore();
+
+      showInformation(ctx);
+
     } else {
       ctx.clearRect(0,0, canvas.width, canvas.height);
       ctx.font = "15px Arial";
@@ -90,12 +98,18 @@ function passo(t){
 function showInformation(ctx){
   
   if(life >= 0){
+
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "Orange";
+    ctx.fillText("Level: " + level, 20, 15);
+
     ctx.font = "15px Arial";
     ctx.fillStyle = "Blue";
     ctx.fillText("Life", 440, 15);
     ctx.fillStyle = "Orange";
     ctx.fillRect(440, 20, life, 10);
     ctx.strokeRect(440, 20, life, 10);
+
   }
 }
 

@@ -6,7 +6,6 @@ function Sprite(){
   this.SIZE = 16;
   this.color = "rgba(0,0,0,0.3)";
   this.pose = 0;
-  this.life = 100;
   this.frame = 0;
   this.poses = [
     {row: 11, col:1, frames:8, v: 4},//direita[0]

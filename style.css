@@ -1,0 +1,15 @@
+body {
+	font-family: sans-serif;
+	background: #D3D3D3;
+	color: #DCD;
+}
+
+#container {
+	height: 580px;
+	width: 580px;
+	margin: 0 auto;
+	text-align: center;
+	background: #BEBEBE;
+	padding: 1px;
+}
+
